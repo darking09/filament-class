@@ -1,0 +1,40 @@
+name: test-filament-laravel
+
+services:
+    php:
+        env_file:
+            - ./.env
+        environment:
+            APACHE_DOCUMENT_ROOT: /srv/app
+            AUTORUN: 1
+        build:
+            context: .
+            args:
+                - NODE_VERSION=18.20.0
+        container_name: tfl_php
+        volumes:
+            - .:/srv/app
+        ports:
+            - "80:80"
+            - "9000:80"
+            - "5173:5173"
+        depends_on:
+            mysql:
+                condition: service_started
+                required: true
+    mysql:
+        image: mysql:8.3.0
+        command: --default-authentication-plugin=mysql_native_password
+        container_name: tfl_mysql
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: ${DB_DATABASE}
+            MYSQL_USER: ${DB_USERNAME}
+            MYSQL_PASSWORD: ${DB_PASSWORD}
+        ports:
+            - "3306:3306"
+        volumes:
+            - dbdata:/var/lib/mysql
+            - ./init:/docker-entrypoint-initdb.d
+volumes:
+    dbdata:
