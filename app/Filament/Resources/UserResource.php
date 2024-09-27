@@ -30,9 +30,12 @@ class UserResource extends Resource
                     ->email()
                     ->required()
                     ->maxLength(255),
-                Forms\Components\Toggle::make('is_admin')
-                    ->label('Is Admin')
-                    ->default(false),
+                Forms\Components\Select::make('role_id')
+                    ->required()
+                    ->label('Role')
+                    ->relationship('role', 'role_name')
+                    ->searchable('role_name')
+                    ->preload(),
                 Forms\Components\TextInput::make('password')
                     ->password()
                     ->dehydrated(fn($state) => filled($state))
@@ -52,8 +55,11 @@ class UserResource extends Resource
                 Tables\Columns\TextColumn::make('email')
                     ->copyable()
                     ->searchable(),
-                Tables\Columns\BooleanColumn::make('is_admin')
-                    ->label('Admin'),
+                Tables\Columns\TextColumn::make('role.role_name')
+                    ->label('Role')
+                    ->searchable()
+                    ->sortable()
+                    ->default('No role assigned yet'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
