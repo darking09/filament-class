@@ -10,7 +10,7 @@ The course is divided into the following classes:
 
 Diagram of the classes:
 
-![Class Diagram](https://mdsco-my.sharepoint.com/:i:/g/personal/ftorres_mdsdigital_com/EQhOQGOuEs5IlhkrxNvC4lABXdpOpow4PbfnHWz3jBre8g?e=dBNAmL)
+![Class Diagram](https://mds-presentations.s3.amazonaws.com/courses/ERM.png){width=250}
 
 
 1. **Class 1**: Installation and setup [video](https://mdsco-my.sharepoint.com/:v:/g/personal/ftorres_mdsdigital_com/EWT7-rqrh1dBnwayGshnbucBHTimBnRWqVZ1K0RE7j8cTg?e=Sm3VF1&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D) [code](https://github.com/darking09/filament-class/tree/Class-1)
