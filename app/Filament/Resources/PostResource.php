@@ -19,6 +19,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 use \Filament\Forms\Get;
 use Filament\Forms\Set;
 use Illuminate\Support\Str;
+use Config;
 
 class PostResource extends Resource
 {
@@ -113,6 +114,24 @@ class PostResource extends Resource
                                     ->imageResizeMode('cover')
                             ])
                             ->collapsed(),
+                        Section::make('Tags Information')
+                            ->schema([
+                                Forms\Components\Select::make('tags')
+                                    ->relationship('tags', 'name')
+                                    ->searchable('name')
+                                    ->preload()
+                                    ->multiple()
+                            ])
+                            ->collapsed(),
+                        Section::make('Categories Information')
+                            ->schema([
+                                Forms\Components\Select::make('categories')
+                                    ->relationship('categories', 'name')
+                                    ->searchable('name')
+                                    ->preload()
+                                    ->multiple()
+                            ])
+                            ->collapsed(),
                     ])
                     ->columnSpan([
                         'md' => 1,
@@ -125,7 +144,58 @@ class PostResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('title')
+                    ->searchable()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('status')
+                    ->searchable()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('slug')
+                    ->searchable()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('published_at')
+                    ->datetime()
+                    ->sortable()
+                    ->since(),
+                Tables\Columns\TextColumn::make('user.name')
+                    ->label('Author')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('tags.name')
+                    ->badge()
+                    ->listWithLineBreaks()
+                    ->limitList(3)
+                    ->expandableLimitedList()
+                    ->default('No tags assigned yet')
+                    ->color(function (string $state): string {
+                        $colors = Config::get('constants.COLORS');
+
+                        if ($state === 'No tags assigned yet') {
+                            return 'danger';
+                        }
+
+                        shuffle($colors);
+
+                        return $colors[0];
+
+                    }),
+                Tables\Columns\TextColumn::make('categories.name')
+                    ->badge()
+                    ->listWithLineBreaks()
+                    ->limitList(3)
+                    ->expandableLimitedList()
+                    ->default('No categories assigned yet')
+                    ->color(function (string $state): string {
+                        $colors = Config::get('constants.COLORS');
+
+                        if ($state === 'No categories assigned yet') {
+                            return 'danger';
+                        }
+
+                        shuffle($colors);
+
+                        return $colors[0];
+
+                    })
             ])
             ->filters([
                 //

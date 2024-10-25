@@ -17,7 +17,9 @@ class RoleResource extends Resource
 {
     protected static ?string $model = Role::class;
 
-    protected static ?string $navigationIcon = 'heroicon-c-user-group';
+    protected static ?string $navigationGroup = 'Users';
+
+    protected static ?int $navigationSort = 2;
 
     public static function form(Form $form): Form
     {
